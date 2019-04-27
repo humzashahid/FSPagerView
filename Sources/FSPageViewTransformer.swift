@@ -28,10 +28,12 @@ open class FSPagerViewTransformer: NSObject {
     
     open var minimumScale: CGFloat = 0.65
     open var minimumAlpha: CGFloat = 0.6
+    open var galleryFromCell : Bool = false
     
     @objc
     public init(type: FSPagerViewTransformerType) {
         self.type = type
+        galleryFromCell = false
         switch type {
         case .zoomOut:
             self.minimumScale = 0.85
@@ -249,6 +251,9 @@ open class FSPagerViewTransformer: NSObject {
         case .linear:
             guard scrollDirection == .horizontal else {
                 return 0
+            }
+            if galleryFromCell == true {
+                return  20.0
             }
             return pagerView.itemSize.width * -self.minimumScale * 0.2
         case .coverFlow:
